@@ -1,0 +1,27 @@
+{
+  "name": "insta-bite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagar-gavhane/insta-bite.git"
+  },
+  "keywords": [],
+  "author": "sagar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagar-gavhane/insta-bite/issues"
+  },
+  "homepage": "https://github.com/sagar-gavhane/insta-bite#readme",
+  "dependencies": {
+    "next": "~9.5.5",
+    "react": "~16.13.1",
+    "react-dom": "~16.13.1"
+  }
+}
