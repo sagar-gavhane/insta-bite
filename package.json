@@ -28,21 +28,26 @@
     "*.js": "eslint --cache --fix"
   },
   "dependencies": {
+    "axios": "~0.20.0",
+    "classnames": "~2.2.6",
+    "http-status-codes": "~2.1.4",
+    "mongoose": "~5.10.9",
     "next": "~9.5.5",
-    "react": "~16.13.1",
-    "react-dom": "~16.13.1"
+    "react": "~16.14.0",
+    "react-dom": "~16.14.0",
+    "react-query": "~2.23.1"
   },
   "devDependencies": {
     "babel-plugin-inline-react-svg": "~1.1.1",
     "eslint": "~7.11.0",
-    "eslint-config-prettier": "~6.12.0",
+    "eslint-config-prettier": "~6.13.0",
     "eslint-plugin-prettier": "~3.1.4",
     "eslint-plugin-react": "~7.21.4",
     "husky": "~4.3.0",
-    "lint-staged": "~10.4.0",
+    "lint-staged": "~10.4.2",
     "postcss-flexbugs-fixes": "4.2.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "~2.1.2",
-    "tailwindcss": "^1.7.4"
+    "tailwindcss": "^1.9.4"
   }
 }
