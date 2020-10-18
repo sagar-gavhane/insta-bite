@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -10,8 +10,12 @@ import productService from 'services/product'
 import orderService from 'services/orders'
 
 export default function CartPage() {
-  let cartId = localStorage.getItem('cartId')
+  const [cartId, setCartId] = useState(null)
   const router = useRouter()
+
+  useEffect(() => {
+    setCartId(localStorage.getItem('cartId'))
+  }, [])
 
   const { isLoading, error, data, refetch } = useQuery(
     ['carts', { cartId }],
