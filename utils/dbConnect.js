@@ -5,7 +5,7 @@ let isConnected = -1
 async function dbConnect() {
   if (isConnected !== -1) return
 
-  const { MONGODB_URI = 'mongodb://localhost:27017/insta_bite' } = process.env
+  const { MONGODB_URI } = process.env
 
   if (!MONGODB_URI) {
     throw new Error(
