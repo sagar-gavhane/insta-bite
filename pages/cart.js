@@ -27,7 +27,7 @@ export default function CartPage() {
         cart.products.map((product) => {
           const quantity = product.quantity
 
-          return productService.get(product._id).then((res) => {
+          return productService.get(product.id).then((res) => {
             return {
               ...res.data,
               quantity,
@@ -45,9 +45,13 @@ export default function CartPage() {
 
   if (error) return <h1>Error: {error.message}</h1>
 
-  const totalPrice = Math.round(
-    data.products.map((p) => p.quantity * p.price).reduce((a, c) => a + c, 0)
-  )
+  let totalPrice = 0
+
+  if (data) {
+    totalPrice = Math.round(
+      data.products.map((p) => p.quantity * p.price).reduce((a, c) => a + c, 0)
+    )
+  }
 
   return (
     <Fragment>
@@ -68,7 +72,7 @@ export default function CartPage() {
                   <div
                     style={{ gridTemplateColumns: '64px 1fr 1fr' }}
                     className="grid gap-4 items-center"
-                    key={product.id}
+                    key={product._id}
                   >
                     <Link href={`/product/${product.id}?backlink=/cart`}>
                       <a>
@@ -90,15 +94,15 @@ export default function CartPage() {
                         className="bg-blue-500 text-white px-2 py-1"
                         onClick={() => {
                           const products = data.products.map((p) => {
-                            if (p.id === product.id && p.quantity > 1) {
+                            if (p._id === product._id && p.quantity > 1) {
                               return {
-                                id: p.id,
+                                id: p._id,
                                 quantity: p.quantity - 1,
                               }
                             }
 
                             return {
-                              id: p.id,
+                              id: p._id,
                               quantity: p.quantity,
                             }
                           })
@@ -117,15 +121,15 @@ export default function CartPage() {
                         className="bg-blue-500 text-white px-2 py-1"
                         onClick={() => {
                           const products = data.products.map((p) => {
-                            if (p.id === product.id) {
+                            if (p._id === product._id) {
                               return {
-                                id: p.id,
+                                id: p._id,
                                 quantity: p.quantity + 1,
                               }
                             }
 
                             return {
-                              id: p.id,
+                              id: p._id,
                               quantity: p.quantity,
                             }
                           })

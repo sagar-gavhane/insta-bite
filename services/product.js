@@ -2,7 +2,6 @@ import axios from 'axios'
 
 class Product {
   get(id, queryParameters) {
-    console.log('[id]', id)
     if (id) {
       return axios.get(`/api/products/${id}`).then((data) => data.data)
     } else if (queryParameters) {

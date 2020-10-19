@@ -65,12 +65,12 @@ export default function ProductPage() {
                         })
                       } else {
                         const productIdx = products.findIndex(
-                          (p) => p.id === response.data.id
+                          (p) => p.id === response.data._id
                         )
 
                         if (productIdx === -1) {
                           products = products.concat({
-                            id: response.data.id,
+                            id: response.data._id,
                             quantity: 1,
                           })
                         } else {

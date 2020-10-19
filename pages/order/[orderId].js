@@ -17,15 +17,13 @@ export default function OrderPage() {
     () => {
       return orderService.get(router.query.orderId).then(async (response) => {
         const order = response.data
-        const d2 = await cartService.get(order.cartId)
-        const cart = d2.data
+        const cart = await cartService.get(order.cartId).then((r) => r.data)
 
-        const d3 = await Promise.all(
+        const products = await Promise.all(
           cart.products.map((product) => {
             return productService.get(product.id)
           })
         )
-        const products = d3.data
 
         return {
           order,
@@ -51,10 +49,10 @@ export default function OrderPage() {
   const totalPrice = Math.round(
     data.products
       .map((p) => {
-        const { quantity } = data.cart.products.find((e) => e.id === p.id)
-
+        const { quantity } =
+          data.cart.products.find((e) => e.id === p.data._id) ?? {}
         return {
-          ...p,
+          ...p.data,
           quantity,
         }
       })
@@ -70,10 +68,10 @@ export default function OrderPage() {
         next 45 minutes.
       </p>
       <div>
-        {data.products.map((product) => {
-          const { quantity } = data.cart.products.find(
-            (p) => p.id === product.id
-          )
+        {data.products.map((prod) => {
+          const product = prod.data
+          const { quantity } =
+            data.cart.products.find((p) => p.id === product._id) ?? {}
 
           return (
             <div
