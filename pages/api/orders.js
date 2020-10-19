@@ -2,6 +2,7 @@ import HttpStatus from 'http-status-codes'
 
 import OrderModel from 'models/Order'
 import dbConnect from 'utils/dbConnect'
+import sendMessage from 'utils/sendMessage'
 
 export default async function handler(req, res) {
   await dbConnect()
@@ -12,6 +13,11 @@ export default async function handler(req, res) {
         let doc = { cartId: req.body.cartId }
 
         const order = await OrderModel.create(doc)
+
+        // send message on whatsapp
+        await sendMessage({
+          body: `New order has been placed. View order: https://insta-bite.com/order/${order._id}`,
+        })
 
         res.status(HttpStatus.OK).json({
           message: 'Order has been created successfully.',
