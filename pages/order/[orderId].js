@@ -82,9 +82,11 @@ export default function OrderPage() {
             <div
               style={{ gridTemplateColumns: '64px 1fr 48px' }}
               className="grid gap-4 items-center"
-              key={product.id}
+              key={product._id}
             >
-              <Link href={`/product/${product.id}?backlink=/cart`}>
+              <Link
+                href={`/product/${product._id}?backlink=/order/${router.query.orderId}`}
+              >
                 <a>
                   <img
                     className="rounded"
@@ -96,7 +98,9 @@ export default function OrderPage() {
                 </a>
               </Link>
               <div className="grid">
-                <Link href={`/product/${product.id}?backlink=/cart`}>
+                <Link
+                  href={`/product/${product._id}?backlink=/order/${router.query.orderId}`}
+                >
                   <a className="font-medium text-sm">{product.name}</a>
                 </Link>
                 <span className="text-xs">₹ {product.price}</span>
