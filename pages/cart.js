@@ -86,7 +86,7 @@ export default function CartPage() {
                       </a>
                     </Link>
                     <div className="grid">
-                      <Link href={`/product/${product.id}?backlink=/cart`}>
+                      <Link href={`/product/${product._id}?backlink=/cart`}>
                         <a className="font-medium text-sm">{product.name}</a>
                       </Link>
                       <span className="text-xs">₹ {product.price}</span>
