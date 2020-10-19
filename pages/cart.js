@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 
 import Layout from 'components/Layout'
 import Spinner from 'components/Spinner'
+import Alert from 'components/Alert'
 import cartService from 'services/carts'
 import productService from 'services/product'
 import orderService from 'services/orders'
@@ -43,8 +44,6 @@ export default function CartPage() {
     }
   )
 
-  if (error) return <h1>Error: {error.message}</h1>
-
   let totalPrice = 0
 
   if (data) {
@@ -62,6 +61,7 @@ export default function CartPage() {
         <div>
           <h1 className="font-medium text-lg">Cart</h1>
         </div>
+        {error && <Alert message={error.message} />}
         {isLoading && <Spinner />}
         {data && (
           <Fragment>

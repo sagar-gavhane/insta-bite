@@ -8,6 +8,7 @@ import { useQuery } from 'react-query'
 import Layout from 'components/Layout'
 import ProductItem from 'components/ProductItem'
 import Spinner from 'components/Spinner'
+import Alert from 'components/Alert'
 import productService from 'services/product'
 
 export default function HomePage() {
@@ -24,10 +25,6 @@ export default function HomePage() {
     const nextSelectedTab = router.query.tab ?? 'pizza'
     setSelectedTab(nextSelectedTab)
   }, [router.query.tab])
-
-  if (error) {
-    return <h1>error: {error.message}</h1>
-  }
 
   return (
     <Fragment>
@@ -73,6 +70,7 @@ export default function HomePage() {
             </Link>
           </li>
         </ul>
+        {error && <Alert message={error.message} />}
         {isLoading && <Spinner />}
         {response && (
           <section className="grid grid-cols-1 grid-rows-1 gap-4 py-4">

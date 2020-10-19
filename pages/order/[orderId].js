@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 
 import Layout from 'components/Layout'
 import Spinner from 'components/Spinner'
+import Alert from 'components/Alert'
 import orderService from 'services/orders'
 import cartService from 'services/carts'
 import productService from 'services/product'
@@ -43,7 +44,11 @@ export default function OrderPage() {
   }
 
   if (error) {
-    return <h1>Error occured: ${error.message}</h1>
+    return (
+      <Layout>
+        <Alert message={error.message} />
+      </Layout>
+    )
   }
 
   const totalPrice = Math.round(

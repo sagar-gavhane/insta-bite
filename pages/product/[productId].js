@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 
 import Layout from 'components/Layout'
 import Spinner from 'components/Spinner'
+import Alert from 'components/Alert'
 import productService from 'services/product'
 import cartService from 'services/carts'
 
@@ -20,8 +21,6 @@ export default function ProductPage() {
       return productService.get(router.query.productId)
     }
   )
-
-  if (error) return <h1>Error: {error.message}</h1>
 
   return (
     <Fragment>
@@ -38,6 +37,7 @@ export default function ProductPage() {
             </a>
           </Link>
         </div>
+        {error && <Alert message={error.message} />}
         {isLoading && <Spinner />}
         {response && (
           <div>
