@@ -7,7 +7,12 @@ export default function Header() {
       <div className="py-2 mt-2 text-center text-5xl font-extrabold leading-none tracking-tight">
         <Link href="/">
           <a>
-            <img src="/images/logo.png" className="inline-block w-20" />
+            <img
+              src="/images/logo.png"
+              className="inline-block w-20"
+              alt="logo"
+              loading="lazy"
+            />
           </a>
         </Link>
       </div>

@@ -79,6 +79,8 @@ export default function CartPage() {
                         <img
                           className="rounded"
                           src={product.image}
+                          alt={`${product.name} image`}
+                          loading="lazy"
                           width="64px"
                         />
                       </a>

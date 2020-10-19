@@ -41,7 +41,12 @@ export default function ProductPage() {
         {isLoading && <Spinner />}
         {response && (
           <div>
-            <img src={response.data.image} className="rounded my-4" />
+            <img
+              src={response.data.image}
+              className="rounded my-4"
+              alt={`${response.data.name} image`}
+              loading="lazy"
+            />
             <h2 className="font-bold text-lg my-2">{response.data.name}</h2>
             <p className="text-sm">{response.data.description}</p>
             <div className="grid grid-cols-2 my-2">

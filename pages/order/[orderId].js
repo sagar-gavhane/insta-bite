@@ -81,7 +81,13 @@ export default function OrderPage() {
             >
               <Link href={`/product/${product.id}?backlink=/cart`}>
                 <a>
-                  <img className="rounded" src={product.image} width="64px" />
+                  <img
+                    className="rounded"
+                    src={product.image}
+                    alt={`${product.name} image`}
+                    width="64px"
+                    loading="lazy"
+                  />
                 </a>
               </Link>
               <div className="grid">

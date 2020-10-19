@@ -6,7 +6,12 @@ export default function ProductItem(props) {
     <Link href={`/product/${props._id}?backlink=/?tab=${props.selectedTab}`}>
       <a>
         <div className="grid bg-gray-100 p-4 cursor-pointer">
-          <img className="p-5" src={props.image} />
+          <img
+            className="p-5"
+            src={props.image}
+            alt={`${props.name} image`}
+            loading="lazy"
+          />
           <h3 className="text-md font-semibold">{props.name}</h3>
           <p className="font-thin text-xs">{props.shortText}</p>
           <p className="text-sm">₹ {props.price}</p>
