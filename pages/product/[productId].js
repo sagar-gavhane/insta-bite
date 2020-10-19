@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 
 import Layout from 'components/Layout'
+import Spinner from 'components/Spinner'
 import productService from 'services/product'
 import cartService from 'services/carts'
 
@@ -20,13 +21,14 @@ export default function ProductPage() {
     }
   )
 
-  if (isLoading) return <h1>Loading...</h1>
   if (error) return <h1>Error: {error.message}</h1>
 
   return (
     <Fragment>
       <Head>
-        <title>{response.data.name} - insta-bite.com</title>
+        <title>
+          {response ? response.data.name : 'Product'} - insta-bite.com
+        </title>
       </Head>
       <Layout>
         <div className="grid">
@@ -36,56 +38,59 @@ export default function ProductPage() {
             </a>
           </Link>
         </div>
-        <div>
-          <img src={response.data.image} className="rounded my-4" />
-          <h2 className="font-bold text-lg my-2">{response.data.name}</h2>
-          <p className="text-sm">{response.data.description}</p>
-          <div className="grid grid-cols-2 my-2">
-            <div className="grid grid-cols-1">
-              <span className="text-gray-500">Price</span>
-              <span className="font-bold">₹ {response.data.price}</span>
-            </div>
-            <div className="grid">
-              <button
-                className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold px-4 py-2 my-2 rounded"
-                onClick={() => {
-                  const cartId = localStorage.getItem('cartId')
+        {isLoading && <Spinner />}
+        {response && (
+          <div>
+            <img src={response.data.image} className="rounded my-4" />
+            <h2 className="font-bold text-lg my-2">{response.data.name}</h2>
+            <p className="text-sm">{response.data.description}</p>
+            <div className="grid grid-cols-2 my-2">
+              <div className="grid grid-cols-1">
+                <span className="text-gray-500">Price</span>
+                <span className="font-bold">₹ {response.data.price}</span>
+              </div>
+              <div className="grid">
+                <button
+                  className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold px-4 py-2 my-2 rounded"
+                  onClick={() => {
+                    const cartId = localStorage.getItem('cartId')
 
-                  cartService.get(cartId).then(async (res) => {
-                    let products = res.data.products
+                    cartService.get(cartId).then(async (res) => {
+                      let products = res.data.products
 
-                    if (products.length === 0) {
-                      products = products.concat({
-                        id: response.data._id,
-                        quantity: 1,
-                      })
-                    } else {
-                      const productIdx = products.findIndex(
-                        (p) => p.id === response.data.id
-                      )
-
-                      if (productIdx === -1) {
+                      if (products.length === 0) {
                         products = products.concat({
-                          id: response.data.id,
+                          id: response.data._id,
                           quantity: 1,
                         })
                       } else {
-                        products[productIdx].quantity =
-                          products[productIdx].quantity + 1
-                      }
-                    }
+                        const productIdx = products.findIndex(
+                          (p) => p.id === response.data.id
+                        )
 
-                    cartService.update(cartId, { products }).then(() => {
-                      router.push('/cart')
+                        if (productIdx === -1) {
+                          products = products.concat({
+                            id: response.data.id,
+                            quantity: 1,
+                          })
+                        } else {
+                          products[productIdx].quantity =
+                            products[productIdx].quantity + 1
+                        }
+                      }
+
+                      cartService.update(cartId, { products }).then(() => {
+                        router.push('/cart')
+                      })
                     })
-                  })
-                }}
-              >
-                Add to cart
-              </button>
+                  }}
+                >
+                  Add to cart
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Layout>
     </Fragment>
   )

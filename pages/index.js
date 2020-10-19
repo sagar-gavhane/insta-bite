@@ -7,6 +7,7 @@ import { useQuery } from 'react-query'
 
 import Layout from 'components/Layout'
 import ProductItem from 'components/ProductItem'
+import Spinner from 'components/Spinner'
 import productService from 'services/product'
 
 export default function HomePage() {
@@ -23,10 +24,6 @@ export default function HomePage() {
     const nextSelectedTab = router.query.tab ?? 'pizza'
     setSelectedTab(nextSelectedTab)
   }, [router.query.tab])
-
-  if (isLoading) {
-    return <h1>Loading...</h1>
-  }
 
   if (error) {
     return <h1>error: {error.message}</h1>
@@ -76,17 +73,20 @@ export default function HomePage() {
             </Link>
           </li>
         </ul>
-        <section className="grid grid-cols-1 grid-rows-1 gap-4 py-4">
-          {response.data.map((product) => {
-            return (
-              <ProductItem
-                key={product._id}
-                {...product}
-                selectedTab={selectedTab}
-              />
-            )
-          })}
-        </section>
+        {isLoading && <Spinner />}
+        {response && (
+          <section className="grid grid-cols-1 grid-rows-1 gap-4 py-4">
+            {response.data.map((product) => {
+              return (
+                <ProductItem
+                  key={product._id}
+                  {...product}
+                  selectedTab={selectedTab}
+                />
+              )
+            })}
+          </section>
+        )}
       </Layout>
     </Fragment>
   )

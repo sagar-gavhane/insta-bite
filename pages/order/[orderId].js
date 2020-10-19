@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 
 import Layout from 'components/Layout'
+import Spinner from 'components/Spinner'
 import orderService from 'services/orders'
 import cartService from 'services/carts'
 import productService from 'services/product'
@@ -36,7 +37,11 @@ export default function OrderPage() {
   )
 
   if (isLoading) {
-    return <h1>Loading...</h1>
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    )
   }
 
   if (error) {
