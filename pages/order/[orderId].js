@@ -10,7 +10,7 @@ import orderService from 'services/orders'
 import cartService from 'services/carts'
 import productService from 'services/product'
 
-export default function OrderPage() {
+export default function OrderPage(props) {
   const router = useRouter()
 
   const { data, isLoading, error } = useQuery(
@@ -32,6 +32,13 @@ export default function OrderPage() {
           products,
         }
       })
+    },
+    {
+      initialData: {
+        order: props.order,
+        cart: props.cart,
+        products: props.products,
+      },
     }
   )
 
@@ -124,4 +131,43 @@ export default function OrderPage() {
       </div>
     </Layout>
   )
+}
+
+export async function getServerSideProps({ query }) {
+  try {
+    const { order, cart, products } = await orderService
+      .get(query.orderId)
+      .then(async (response) => {
+        const order = response.data
+        const cart = await cartService.get(order.cartId).then((r) => r.data)
+
+        const products = await Promise.all(
+          cart.products.map((product) => {
+            return productService.get(product.id)
+          })
+        )
+
+        return {
+          order,
+          cart,
+          products,
+        }
+      })
+
+    return {
+      props: {
+        order,
+        cart,
+        products,
+      },
+    }
+  } catch (err) {
+    return {
+      props: {
+        order: {},
+        cart: {},
+        products: [],
+      },
+    }
+  }
 }

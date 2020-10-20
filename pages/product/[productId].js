@@ -12,13 +12,14 @@ import cartService from 'services/carts'
 
 import ArrowLeftIcon from './../../assets/icons/arrow-left.svg'
 
-export default function ProductPage() {
+export default function ProductPage(props) {
   const router = useRouter()
 
   const { isLoading, error, data: response } = useQuery(
     ['product', { id: router.query.productId }],
-    () => {
-      return productService.get(router.query.productId)
+    () => productService.get(router.query.productId),
+    {
+      initialData: props.product,
     }
   )
 
@@ -100,4 +101,21 @@ export default function ProductPage() {
       </Layout>
     </Fragment>
   )
+}
+
+export async function getServerSideProps({ query }) {
+  try {
+    const product = await productService.get(query.productId)
+    return {
+      props: {
+        product,
+      },
+    }
+  } catch (err) {
+    return {
+      props: {
+        product: {},
+      },
+    }
+  }
 }

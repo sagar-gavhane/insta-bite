@@ -11,14 +11,17 @@ import Spinner from 'components/Spinner'
 import Alert from 'components/Alert'
 import productService from 'services/product'
 
-export default function HomePage() {
+export default function HomePage(props) {
   const [selectedTab, setSelectedTab] = useState('pizza')
 
   const router = useRouter()
 
   const { isLoading, data: response, error } = useQuery(
     ['products', { selectedTab }],
-    () => productService.get(null, `type=${selectedTab}`)
+    () => productService.get(null, `type=${selectedTab}`),
+    {
+      initialData: props.products,
+    }
   )
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export default function HomePage() {
   return (
     <Fragment>
       <Head>
-        <title>Home - insta-bite.com</title>
+        <title>Order pizza, burger, or cake - insta-bite.com</title>
       </Head>
       <Layout>
         <ul className="grid grid-cols-3 justify-items-center">
@@ -88,4 +91,24 @@ export default function HomePage() {
       </Layout>
     </Fragment>
   )
+}
+
+export async function getServerSideProps({ query }) {
+  try {
+    const products = await productService.get(
+      null,
+      `type=${query.tab ?? 'pizza'}`
+    )
+    return {
+      props: {
+        products: products,
+      },
+    }
+  } catch (err) {
+    return {
+      props: {
+        products: [],
+      },
+    }
+  }
 }
