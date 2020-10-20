@@ -8,7 +8,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Order pizza, burger, or cake - insta-bite.com</title>
           {/* primary meta tags */}
           <meta
             name="title"
