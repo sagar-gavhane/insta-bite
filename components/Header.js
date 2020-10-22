@@ -8,7 +8,7 @@ export default function Header() {
         <Link href="/">
           <a>
             <img
-              src="/images/logo.png"
+              src="https://res.cloudinary.com/insta-bite/image/upload/v1603344401/logo_ffhgo3.png"
               className="inline-block w-20"
               alt="logo"
               loading="lazy"

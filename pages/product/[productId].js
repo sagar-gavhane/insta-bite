@@ -50,7 +50,6 @@ export default function ProductPage(props) {
             />
             <h2 className="font-bold text-lg my-2">{response.data.name}</h2>
             <p className="text-xs text-gray-700">{response.data.shortText}</p>
-            <p className="text-sm my-2">{response.data.description}</p>
             <div className="grid grid-cols-2 my-2">
               <div className="grid grid-cols-1">
                 <span className="text-gray-500">Price</span>

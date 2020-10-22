@@ -9,10 +9,11 @@ export default async function handler(req, res) {
 
   switch (req.method) {
     case 'POST': {
+      let order = {}
       try {
         let doc = { cartId: req.body.cartId }
 
-        const order = await OrderModel.create(doc)
+        order = await OrderModel.create(doc)
 
         // send message on whatsapp
         await sendMessage({
@@ -24,6 +25,15 @@ export default async function handler(req, res) {
           data: order,
         })
       } catch (err) {
+        if (
+          err.code === 'ENOTFOUND' &&
+          err.message === 'getaddrinfo ENOTFOUND api.twilio.com'
+        ) {
+          res.status(HttpStatus.OK).json({
+            message: 'Order has been created successfully.',
+            data: order,
+          })
+        }
         res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
           message: err.message,
           code: err.code ?? 'UNPROCESSABLE_ENTITY',

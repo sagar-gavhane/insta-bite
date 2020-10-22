@@ -9,9 +9,10 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
+  sku: {
     type: String,
-    required: false,
+    unique: true,
+    required: true,
   },
   price: {
     type: Number,
@@ -24,6 +25,11 @@ const ProductSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
   },
 })
 

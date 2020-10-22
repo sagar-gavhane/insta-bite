@@ -49,18 +49,6 @@ export default function HomePage(props) {
             </Link>
           </li>
           <li>
-            <Link href="/?tab=cake">
-              <a
-                className={cn('inline-block', {
-                  'border-b-2 border-blue-500 pb-1 text-blue-500':
-                    selectedTab === 'cake',
-                })}
-              >
-                Cake 🍰
-              </a>
-            </Link>
-          </li>
-          <li>
             <Link href="/?tab=burger">
               <a
                 className={cn('inline-block', {
@@ -69,6 +57,18 @@ export default function HomePage(props) {
                 })}
               >
                 Burger 🍔
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/?tab=cake">
+              <a
+                className={cn('inline-block', {
+                  'border-b-2 border-blue-500 pb-1 text-blue-500':
+                    selectedTab === 'cake',
+                })}
+              >
+                Cake 🍰
               </a>
             </Link>
           </li>
