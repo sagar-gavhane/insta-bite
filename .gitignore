@@ -2,7 +2,10 @@
 node_modules
 .next
 .vscode
+.vercel
+docs
 
 # files
+.env
 .eslintcache
 package-lock.json
