@@ -1,13 +1,12 @@
-import React, { Fragment } from 'react'
-import Head from 'next/head'
+import { useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function AccountPage() {
-  return (
-    <Fragment>
-      <Head>
-        <title>Account - insta-bite.com</title>
-      </Head>
-      <h1>hello from account page</h1>
-    </Fragment>
-  )
+  const { loginWithRedirect } = useAuth0()
+
+  useEffect(() => {
+    loginWithRedirect()
+  })
+
+  return null
 }
