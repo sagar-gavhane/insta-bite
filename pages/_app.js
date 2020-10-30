@@ -27,7 +27,7 @@ if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
   })
 }
 
-function MyApp({ Component, pageProps, err }) {
+export default function MyApp({ Component, pageProps, err }) {
   const router = useRouter()
 
   useEffect(() => {
@@ -51,18 +51,12 @@ function MyApp({ Component, pageProps, err }) {
   })
 
   return (
-    <Sentry.ErrorBoundary fallback={'An error has occured'}>
-      <Auth0Provider
-        domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN}
-        clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID}
-        redirectUri={
-          typeof window === 'undefined' ? {} : window.location.origin
-        }
-      >
-        <Component {...pageProps} err={err} />
-      </Auth0Provider>
-    </Sentry.ErrorBoundary>
+    <Auth0Provider
+      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN}
+      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID}
+      redirectUri={typeof window === 'undefined' ? {} : window.location.origin}
+    >
+      <Component {...pageProps} err={err} />
+    </Auth0Provider>
   )
 }
-
-export default MyApp
