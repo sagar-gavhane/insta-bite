@@ -33,7 +33,7 @@
     "@sentry/react": "~5.27.2",
     "@sentry/tracing": "~5.27.2",
     "@sentry/webpack-plugin": "~1.13.0",
-    "@zeit/next-source-maps": "0.0.3",
+    "@zeit/next-source-maps": "0.0.4-canary.1",
     "axios": "~0.20.0",
     "classnames": "~2.2.6",
     "http-status-codes": "~2.1.4",
