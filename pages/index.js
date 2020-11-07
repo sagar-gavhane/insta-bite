@@ -76,7 +76,7 @@ export default function HomePage(props) {
         {error && <Alert message={error.message} />}
         {isLoading && <Spinner />}
         {response && (
-          <section className="grid grid-cols-1 grid-rows-1 gap-4 py-4">
+          <section className="grid grid-cols-1 grid-rows-1 gap-8 py-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {response.data.map((product) => {
               return (
                 <ProductItem
