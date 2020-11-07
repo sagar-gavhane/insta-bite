@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 
 import Layout from 'components/Layout'
 import Spinner from 'components/Spinner'
@@ -111,6 +111,7 @@ export default function CartPage() {
 
                           cartService.update(cartId, { products }).then(() => {
                             refetch()
+                            queryCache.invalidateQueries(['cart_count'])
                           })
                         }}
                       >
@@ -138,6 +139,7 @@ export default function CartPage() {
 
                           cartService.update(cartId, { products }).then(() => {
                             refetch()
+                            queryCache.invalidateQueries(['cart_count'])
                           })
                         }}
                       >
