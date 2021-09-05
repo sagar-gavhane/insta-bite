@@ -1,22 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
-import { useQuery, queryCache } from 'react-query'
+import { useQuery } from 'react-query'
 
 import cartService from 'services/carts'
 
 import ShoppingCartIcon from '../assets/icons/shopping-cart.svg'
 
 export default function Header() {
-  let cartId = null
-
-  useEffect(() => {
-    cartId = localStorage.getItem('cartId')
-    queryCache.refetchQueries(['cart_count'])
-  }, [])
-
-  const { data: count } = useQuery(
+  const { data: count = null } = useQuery(
     ['cart_count'],
     async () => {
+      const cartId = localStorage.getItem('cartId')
+
       if (!cartId) return Promise.resolve(null)
 
       return cartService
@@ -26,7 +21,10 @@ export default function Header() {
         )
     },
     {
-      initialData: null,
+      enabled:
+        typeof window !== 'undefined'
+          ? window.localStorage.getItem('cartId')
+          : false,
     }
   )
 
@@ -54,7 +52,7 @@ export default function Header() {
             {!Number.isNaN(parseInt(count)) && (
               <span
                 className="absolute bg-orange-500 p-1 rounded-full text-white flex w-4 h-4 items-center justify-center"
-                style={{ fontSize: '8px', right: '0px', top: '-4px' }}
+                style={{ fontSize: '8px', right: '-2px', top: '-4px' }}
               >
                 {count}
               </span>

@@ -69,7 +69,7 @@ export default function ProductItem(props) {
               cartService.update(cartId, { products }).then(() => {
                 queryCache.invalidateQueries(['cart_count'])
                 cogoToast.success('Added to cart', {
-                  position: 'top-right',
+                  position: 'top-center',
                 })
               })
             })
