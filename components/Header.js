@@ -4,7 +4,6 @@ import { useQuery, queryCache } from 'react-query'
 
 import cartService from 'services/carts'
 
-import UserIcon from '../assets/icons/user.svg'
 import ShoppingCartIcon from '../assets/icons/shopping-cart.svg'
 
 export default function Header() {
@@ -49,14 +48,9 @@ export default function Header() {
           </h1>
         </a>
       </Link>
-      <div className="grid grid-cols-2 items-center gap-2 md:gap-4">
-        <Link href="/account">
-          <a className="flex justify-center">
-            <UserIcon className="cursor-pointer" />
-          </a>
-        </Link>
+      <div className="grid grid-cols-1 items-center gap-2 md:gap-4">
         <Link href="/cart">
-          <a className="flex justify-center relative">
+          <a className="flex justify-end relative">
             {!Number.isNaN(parseInt(count)) && (
               <span
                 className="absolute bg-orange-500 p-1 rounded-full text-white flex w-4 h-4 items-center justify-center"
