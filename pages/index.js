@@ -11,6 +11,29 @@ import Spinner from 'components/Spinner'
 import Alert from 'components/Alert'
 import productService from 'services/product'
 
+const tabs = [
+  {
+    link: '/?tab=pizza',
+    value: 'pizza',
+    label: 'Pizza 🍕',
+  },
+  {
+    link: '/?tab=burger',
+    value: 'burger',
+    label: 'Burger 🍔',
+  },
+  {
+    link: '/?tab=cake',
+    value: 'cake',
+    label: 'Cake 🍰',
+  },
+  {
+    link: '/?tab=rollbar',
+    value: 'rollbar',
+    label: 'Rollbar 🌭',
+  },
+]
+
 export default function HomePage(props) {
   const [selectedTab, setSelectedTab] = useState('pizza')
 
@@ -35,43 +58,23 @@ export default function HomePage(props) {
         <title>Order pizza, burger, or cake - insta-bite.com</title>
       </Head>
       <Layout>
-        <ul className="grid grid-cols-3 justify-items-center">
-          <li>
-            <Link href="/?tab=pizza">
-              <a
-                className={cn('inline-block', {
-                  'border-b-2 border-blue-500 pb-1 text-blue-500':
-                    selectedTab === 'pizza',
-                })}
-              >
-                Pizza 🍕
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/?tab=burger">
-              <a
-                className={cn('inline-block', {
-                  'border-b-2 border-blue-500 pb-1 text-blue-500':
-                    selectedTab === 'burger',
-                })}
-              >
-                Burger 🍔
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/?tab=cake">
-              <a
-                className={cn('inline-block', {
-                  'border-b-2 border-blue-500 pb-1 text-blue-500':
-                    selectedTab === 'cake',
-                })}
-              >
-                Cake 🍰
-              </a>
-            </Link>
-          </li>
+        <ul className="grid grid-cols-4 justify-items-center">
+          {tabs.map((tab) => {
+            return (
+              <li key={tab.value}>
+                <Link href={tab.link}>
+                  <a
+                    className={cn('inline-block', {
+                      'border-b-2 border-blue-500 pb-1 text-blue-500':
+                        selectedTab === tab.value,
+                    })}
+                  >
+                    {tab.label}
+                  </a>
+                </Link>
+              </li>
+            )
+          })}
         </ul>
         {error && <Alert message={error.message} />}
         {isLoading && <Spinner />}
