@@ -11,9 +11,7 @@ export default async function handler(req, res) {
     case 'POST': {
       let order = {}
       try {
-        let doc = { cartId: req.body.cartId }
-
-        order = await OrderModel.create(doc)
+        order = await OrderModel.create(req.body)
 
         // send message on whatsapp
         await sendMessage({

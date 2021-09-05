@@ -88,7 +88,7 @@ export default function OrderPage(props) {
           return (
             <div
               style={{ gridTemplateColumns: '64px 1fr 48px' }}
-              className="grid gap-4 items-center"
+              className="grid gap-x-4 my-2 items-center"
               key={product._id}
             >
               <Link
@@ -100,6 +100,7 @@ export default function OrderPage(props) {
                     src={product.image}
                     alt={`${product.name} image`}
                     width="64px"
+                    height="64px"
                     loading="lazy"
                   />
                 </a>
@@ -120,6 +121,18 @@ export default function OrderPage(props) {
             </div>
           )
         })}
+        {data.order?.name && (
+          <div>
+            <h4 className="font-bold mt-2">Delivery Details:</h4>
+            <div>{data.order.name}</div>
+            <div>
+              {data.order.mobileNumber}, {data.order.emailAddress}
+            </div>
+            <div>
+              {data.order.address} - {data.order.pinCode}
+            </div>
+          </div>
+        )}
       </div>
       <div className="grid grid-cols-2 my-2">
         <div className="grid grid-cols-1">

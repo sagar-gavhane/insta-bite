@@ -11,8 +11,8 @@ class Order {
     }
   }
 
-  create(cartId) {
-    return axios.post(`/api/orders`, { cartId }).then((data) => data.data)
+  create(payload) {
+    return axios.post(`/api/orders`, payload).then((data) => data.data)
   }
 
   update(id, payload) {
